@@ -35,7 +35,26 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $newCategory = $request->name;
+        $validator = $request->validate([
+            'name' => 'required|unique:categories',
+        ]);
+        $category = new Category();
+        $category->name = $newCategory;
+        $resp = $category->save();
+        if (isset($resp)) {
+            return response()->json([
+                'success' => true,
+                'message' => 'Category successfully added',
+            ]);
+        } else {
+            return response()->json([
+                'success' => false,
+                'message' => $validator->messages()->first(),
+            ]);
+        }
+        
+        
     }
 
     /**

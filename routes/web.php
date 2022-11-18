@@ -38,7 +38,9 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');         
-Route::get('/categories', [App\Http\Controllers\CategoryController::class, 'index'])->name('categories');               
+Route::get('/categories', [App\Http\Controllers\CategoryController::class, 'index'])->name('categories');
+Route::get('/new-category', [App\Http\Controllers\CategoryController::class, 'store'])->name('add-new-category');            
+
 
 	Route::get('/', function () {return redirect('/dashboard');})->middleware('auth');
 	Route::get('/register', [RegisterController::class, 'create'])->middleware('guest')->name('register');
