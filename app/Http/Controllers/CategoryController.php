@@ -14,7 +14,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::all();
+        $categories = Category::orderBy('id','desc')->get();
         return view('categories.index',compact('categories'));
     }
 
@@ -89,7 +89,6 @@ class CategoryController extends Controller
      */
     public function update(Request $request, Category $category)
     {
-        dd($request);
         $newCategory = $request->name;
         $validator = $request->validate([
             'name' => 'required',
@@ -100,7 +99,7 @@ class CategoryController extends Controller
         if (isset($resp)) {
             return response()->json([
                 'success' => true,
-                'message' => 'Category successfully added',
+                'message' => 'Category successfully updated',
             ]);
         } else {
             return response()->json([

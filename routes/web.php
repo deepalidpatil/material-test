@@ -43,8 +43,6 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');         
 Route::get('/categories', [App\Http\Controllers\CategoryController::class, 'index'])->name('categories');
 Route::get('/new-category', [App\Http\Controllers\CategoryController::class, 'store'])->name('add-new-category');
-Route::get('/edit-category/{id}', [App\Http\Controllers\CategoryController::class, 'edit']);
-
 Route::get('/update-category', [App\Http\Controllers\CategoryController::class, 'update'])->name('update-category');
 Route::get('/delete-category', [App\Http\Controllers\CategoryController::class, 'destroy'])->name('delete-category');   
 Route::get('/get-category', [App\Http\Controllers\MaterialController::class, 'getCategoryMaterial'])->name('get-category-material');     
