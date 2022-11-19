@@ -1,7 +1,7 @@
 @extends('layouts.app', ['class' => 'g-sidenav-show bg-gray-100'])
 
 @section('content')
-    @include('layouts.navbars.auth.topnav', ['title' => 'materials'])
+    @include('layouts.navbars.auth.topnav', ['title' => 'Inward Outward,'])
     <div class="container-fluid py-4">
         <div class="row">
             <div class="col-md-12 mt-4">
@@ -9,10 +9,10 @@
                     <div class="card-header pb-0 px-3">
                         <div class="row">
                             <div class="col-6 d-flex align-items-center">
-                                <h6 class="mb-0">Material Information</h6>
+                                <h6 class="mb-0">Inward Outward</h6>
                             </div>
                             <div class="col-6 text-end">
-                                <a class="btn bg-gradient-dark mb-0" href="{{ route('materials.create') }}"><i class="fas fa-plus"></i>&nbsp;&nbsp;Add Material</a>
+                                <a class="btn bg-gradient-dark mb-0" href="{{ route('orders.create') }}"><i class="fas fa-plus"></i> Add orders Quantity</a>
                             </div>
                         </div>
                     </div>
@@ -23,37 +23,37 @@
                                 <strong> {{ session('status') }}</strong>
                             </div>
                         @endif
-                        <table id="materials-table">
+                        <table id="orders-table">
                             <thead>
                                 <tr>
                                     <th>Sr.No</th>
-                                    <th>Name</th>
-                                    <th>Category</th>
-                                    <th>Opening Balance</th>
+                                    <th>Material category</th>
+                                    <th>Material name</th>
+                                    <th>Opening balance</th>
+                                    <th>Current balance</th>
+                                    <th>Date</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($materials as $material)
+                                @foreach ($orders as $order)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $material->name }}</td>
-                                        <td>{{ $material->get_category->name }}</td>
-                                        <td>{{ $material->balance }}</td>
+                                        <td>{{ $order->get_category->name ?? '' }}</td>
+                                        <td>{{ $order->get_material->name ?? '' }}</td>
+                                        <td>{{ $order->get_material->balance ?? '0' }}</td>
+                                        <td>{{ $order->quantity }}</td>
+                                        <td>{{ date("d/m/Y", strtotime($order->date)) }}</td>
+
                                         <td>
-                                            <a href="{{ route('materials.edit',$material->id) }}" class="fa fa-pen" data-id="{{$material->id}}" style="color: blue;"></a> &nbsp;
-                                                <abbr title="Deleted Material"><a href="" class="delete_material fa fa-trash" data-id="{{$material->id}}" data-route="{{route('materials.destroy',$material->id)}}" style="color: red;"></a></abbr>
+                                            <a href="{{ route('materials.edit',$order->material_id) }}" class="fa fa-pen" data-id="{{$order->material_id}}" style="color: blue;"></a> &nbsp;
+                                            <abbr title="Deleted Material"><a href="" class="delete_material fa fa-trash" data-id="{{$order->material_id}}" data-route="{{route('orders.destroy',$order->material_id)}}" style="color: red;"></a></abbr>
                                         </td>
                                     </tr>
                                 @endforeach
                             </tbody>
                         </table>
                     </div>
-                    
-                    {{-- Table --}}
-
-
-
                 </div>
             </div>
         </div>
@@ -61,7 +61,7 @@
 @endsection
 @push('js')
 <script>
-    $('#materials-table').DataTable(); //datatable of materials
+    $('#orders-table').DataTable(); //datatable of orderss
 
     $('.delete_material').on('click',  function (e) {
 		e.preventDefault();
@@ -69,7 +69,7 @@
         console.log('Delete Material Id '+id);
         swal({
             title: "Are you sure?",
-            text: "Once deleted, you will not be able to see this Material!",
+            text: "Once deleted, you will not be able to see this Material and records against this Material",
             icon: "warning",
             buttons: true,
             dangerMode: true,

@@ -116,4 +116,10 @@ class MaterialController extends Controller
         return 1;
         // return redirect()->route('materials.index')->with('status','Material has been deleted successfully');
     }
+
+    public function getCategoryMaterial(Request $request){
+        $category = $request->category;
+        $materials = Material::where('category_id',$category)->get();
+        return json_encode($materials);
+    }
 }

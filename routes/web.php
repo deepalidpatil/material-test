@@ -21,7 +21,8 @@ use App\Http\Controllers\UserProfileController;
 use App\Http\Controllers\ResetPassword;
 use App\Http\Controllers\ChangePassword;  
 use App\Http\Controllers\CategoryController; 
-use App\Http\Controllers\MaterialController; 
+use App\Http\Controllers\MaterialController;
+use App\Http\Controllers\OrderController;
 
 
 
@@ -42,10 +43,11 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');         
 Route::get('/categories', [App\Http\Controllers\CategoryController::class, 'index'])->name('categories');
 Route::get('/new-category', [App\Http\Controllers\CategoryController::class, 'store'])->name('add-new-category');
-Route::get('/delete-category', [App\Http\Controllers\CategoryController::class, 'destroy'])->name('delete-category');        
+Route::get('/delete-category', [App\Http\Controllers\CategoryController::class, 'destroy'])->name('delete-category');   
+Route::get('/get-category', [App\Http\Controllers\MaterialController::class, 'getCategoryMaterial'])->name('get-category-material');     
 
-// Route::get('/materials', [App\Http\Controllers\MaterialController::class, 'index'])->name('materials');
 Route::resource('materials', MaterialController::class);
+Route::resource('orders', OrderController::class);
 
 
 
@@ -62,14 +64,13 @@ Route::resource('materials', MaterialController::class);
 	Route::get('/dashboard', [HomeController::class, 'index'])->name('home')->middleware('auth');
 
 Route::group(['middleware' => 'auth'], function () {
-	Route::get('/virtual-reality', [PageController::class, 'vr'])->name('virtual-reality');
-	Route::get('/rtl', [PageController::class, 'rtl'])->name('rtl');
+	
 	Route::get('/profile', [UserProfileController::class, 'show'])->name('profile');
 	Route::post('/profile', [UserProfileController::class, 'update'])->name('profile.update');
 	Route::get('/profile-static', [PageController::class, 'profile'])->name('profile-static'); 
 	Route::get('/sign-in-static', [PageController::class, 'signin'])->name('sign-in-static');
 	Route::get('/sign-up-static', [PageController::class, 'signup'])->name('sign-up-static'); 
-	Route::get('/{page}', [PageController::class, 'index'])->name('page');
+	// Route::get('/{page}', [PageController::class, 'index'])->name('page');
 	Route::post('logout', [LoginController::class, 'logout'])->name('logout');
 
 });            

@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Material extends Model
+class Order extends Model
 {
     use HasFactory;
     use SoftDeletes;
@@ -18,7 +18,8 @@ class Material extends Model
         return $this->belongsTo('App\Models\Category', 'category_id', 'id');
     }
 
-    public function material(){
-        return $this->hasMany('App\Models\Order', 'material_id', 'id'); // One to Many relatioship
+    // to get material information by id
+    public function get_material(){
+        return $this->belongsTo('App\Models\Material', 'material_id', 'id');
     }
 }
