@@ -39,7 +39,7 @@ class MaterialController extends Controller
     public function store(Request $request)
     {
         $validator = $request->validate([
-            'name' => 'required|unique:materials|alpha_num',
+            'name' => 'required|alpha_num',
             'category' => 'required',
             'balance' => 'required|numeric|min:1'
         ]);
@@ -87,7 +87,7 @@ class MaterialController extends Controller
     public function update(Request $request, Material $material)
     {
         $validator = $request->validate([
-            'name' => 'required|unique:materials|alpha_num',
+            'name' => 'required|alpha_num',
             'category' => 'required',
             'balance' => 'required|numeric|min:1'
         ]);

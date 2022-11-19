@@ -55,7 +55,7 @@
 
                                 <label>Material inward-outward quantity</label>
                                 <div class="input-group mb-3">
-                                    <input type="number" class="form-control" placeholder="Material inward-outward quantity(1.00)" step="0.01" min="0" name="quantity" >
+                                    <input type="number" class="form-control" placeholder="Material inward-outward quantity(1.00)" step="0.01" name="quantity" >
                                 </div>
 
                                 <div class="text-center">

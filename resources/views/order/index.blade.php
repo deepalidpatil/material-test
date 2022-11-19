@@ -12,7 +12,7 @@
                                 <h6 class="mb-0">Inward Outward</h6>
                             </div>
                             <div class="col-6 text-end">
-                                <a class="btn bg-gradient-dark mb-0" href="{{ route('orders.create') }}"><i class="fas fa-plus"></i> Add orders Quantity</a>
+                                <a class="btn bg-gradient-dark mb-0" href="{{ route('orders.create') }}"><i class="fas fa-plus"></i> Add Inward/Outward Quantity</a>
                             </div>
                         </div>
                     </div>
@@ -27,10 +27,10 @@
                             <thead>
                                 <tr>
                                     <th>Sr.No</th>
-                                    <th>Material category</th>
-                                    <th>Material name</th>
-                                    <th>Opening balance</th>
-                                    <th>Current balance</th>
+                                    <th>Material Category</th>
+                                    <th>Material Name</th>
+                                    <th>Opening Balance</th>
+                                    <th>Current Balance</th>
                                     <th>Date</th>
                                     <th>Action</th>
                                 </tr>
@@ -42,7 +42,9 @@
                                         <td>{{ $order->get_category->name ?? '' }}</td>
                                         <td>{{ $order->get_material->name ?? '' }}</td>
                                         <td>{{ $order->get_material->balance ?? '0' }}</td>
-                                        <td>{{ $order->quantity }}</td>
+                                        <td>
+                                            {{ (($order->quantity) > 0 ) ?  ( $order->get_material->balance) +  ($order->quantity) : ($order->get_material->balance) -  (abs($order->quantity)) }}
+                                        </td>
                                         <td>{{ date("d/m/Y", strtotime($order->date)) }}</td>
 
                                         <td>

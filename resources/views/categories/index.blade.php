@@ -59,11 +59,11 @@
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $category->name }}</td>
                                         <td>
-                                            <a href="" data-bs-toggle="modal" data-bs-target="#edit-category_{{$category->id }}" class="edit-category fa fa-pen" data-id="{{$category->id}}" style="color: red;"></a> &nbsp;
+                                            <a href="" data-bs-toggle="modal" data-bs-target="#edit-category-{{$category->id }}" class="edit-category fa fa-pen" data-id="{{$category->id}}" style="color: rgb(81, 0, 255);"></a> &nbsp;
                                             <a href="" class="delete_category fa fa-trash" data-id="{{$category->id}}" style="color: red;"> </a>
                                             
                                                 {{-- Model of Edit category --}}
-                                                <div class="modal fade" id="edit-category_{{$category->id }}" tabindex="-1" role="dialog" aria-labelledby="modal-form" aria-hidden="true">
+                                                <div class="modal fade" id="edit-category-{{$category->id }}" tabindex="-1" role="dialog" aria-labelledby="modal-form" aria-hidden="true">
                                                     <div class="modal-dialog modal-dialog-centered modal-md" role="document">
                                                         <div class="modal-content">
                                                             <div class="modal-body p-0">
@@ -78,7 +78,7 @@
                                                                                 <input type="text" class="form-control" value="{{ $category->name }}" aria-label="Category Name" aria-describedby="name-addon" id="add-category-value">
                                                                             </div>
                                                                             <div class="text-center">
-                                                                                <button type="button" class="btn btn-round bg-gradient-info btn-lg w-100 mt-4 mb-0" id="edit-category">Save</button>
+                                                                                <button type="button" class="btn btn-round bg-gradient-info btn-lg w-100 mt-4 mb-0" id="edit-category">Update</button>
                                                                             </div>
                                                                         </form>
                                                                     </div>
@@ -106,8 +106,8 @@
 
     // Delete category
     $('.delete_category').on('click',  function (e) {
-		e.preventDefault();
-		var id = $(this).data('id');
+        e.preventDefault();
+        var id = $(this).data('id');
         console.log('Delete Category Id '+id);
         swal({
             title: "Are you sure?",
@@ -115,28 +115,30 @@
             icon: "warning",
             buttons: true,
             dangerMode: true,
-            })
-            .then((willDelete) => {
+        }).then((willDelete) => {
             if (willDelete) {
                 $.ajax({
-					headers: {
-						'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-					},
-					type: "get",
-					url: "{{route('delete-category')}}",
-					data: {id:id},
-					success: function (data) {
-						console.log(data);
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    type: "get",
+                    url: "{{route('delete-category')}}",
+                    data: {id:id},
+                    success: function (data) {
+                        console.log(data);
                         swal("Category has been deleted!", {
                             icon: "success",
+                        }).then(function(isConfirm) {      //after button click action
+                            if (isConfirm) {
+                                location.reload();  //reload after button click
+                            }
                         });
-						location.href = "{{route('categories')}}";
-					},
-					error: function (err){
-						console.error(err);
-						swal("Something Went Wrong!");
-					}       
-				});
+                    },
+                    error: function (err){
+                        console.error(err);
+                        swal("Something Went Wrong!");
+                    }       
+                });
             } else {
                 swal("Your Category is safe!");
             }
@@ -158,8 +160,12 @@
             data: {name:addCategory},
             success: function (data) {
                 console.log(data);
-                swal("Successfully!",data.message, "success");
-                location.href = "{{route('categories')}}";
+                swal("Successfully!",data.message, "success").
+                then(function(isConfirm) {     
+                    if (isConfirm) {
+                        location.reload();  //reload after button click
+                    }
+                });
             },
             error: function (err){
                 console.error(err);
@@ -168,7 +174,7 @@
                 location.href = "{{route('categories')}}";
             }           
         });
-     });
+    });
 </script>
 @endpush
 

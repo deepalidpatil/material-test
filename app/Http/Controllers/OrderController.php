@@ -44,7 +44,7 @@ class OrderController extends Controller
             'category' => 'required',
             'material' => 'required',
             'date' => 'required',
-            'quantity' => 'required|numeric|min:1'
+            'quantity' => 'required|numeric'
         ]);
 
         $order = new Order();

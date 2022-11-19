@@ -38,7 +38,7 @@ class CategoryController extends Controller
     {
         $newCategory = $request->name;
         $validator = $request->validate([
-            'name' => 'required|unique:categories',
+            'name' => 'required',
         ]);
         $category = new Category();
         $category->name = $newCategory;
@@ -54,8 +54,6 @@ class CategoryController extends Controller
                 'message' => $validator->messages()->first(),
             ]);
         }
-        
-        
     }
 
     /**
@@ -75,9 +73,11 @@ class CategoryController extends Controller
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function edit(Category $category)
+    public function edit(Request $request)
     {
-        //
+        $category = Category::find($request->id);
+        dd($request);
+        return view('categories.edit',compact('category'));
     }
 
     /**
@@ -89,7 +89,25 @@ class CategoryController extends Controller
      */
     public function update(Request $request, Category $category)
     {
-        //
+        dd($request);
+        $newCategory = $request->name;
+        $validator = $request->validate([
+            'name' => 'required',
+        ]);
+        $category = Category::find($request->id);
+        $category->name = $newCategory;
+        $resp = $category->save();
+        if (isset($resp)) {
+            return response()->json([
+                'success' => true,
+                'message' => 'Category successfully added',
+            ]);
+        } else {
+            return response()->json([
+                'success' => false,
+                'message' => $validator->messages()->first(),
+            ]);
+        }
     }
 
     /**
