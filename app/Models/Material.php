@@ -6,14 +6,15 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Category extends Model
+class Material extends Model
 {
     use HasFactory;
     use SoftDeletes;
 
     protected $guarded = [];
 
-    public function category(){
-        return $this->hasMany('App\Models\Material', 'category_id', 'id'); // One to Many relatioship
+    // to get category information by id
+    public function get_category(){
+        return $this->belongsTo('App\Models\Category', 'category_id', 'id');
     }
 }

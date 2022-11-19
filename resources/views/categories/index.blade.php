@@ -59,8 +59,8 @@
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $category->name }}</td>
                                         <td>
-                                            <a href="" data-bs-toggle="modal" data-bs-target="#edit-category_{{$category->id }}" class="edit-category fa fa-pen" data-id="{{$category->id}}" style="color: red;"> &nbsp;
-                                            <a href="" class="delete_category fa fa-trash" data-id="{{$category->id}}" style="color: red;"> 
+                                            <a href="" data-bs-toggle="modal" data-bs-target="#edit-category_{{$category->id }}" class="edit-category fa fa-pen" data-id="{{$category->id}}" style="color: red;"></a> &nbsp;
+                                            <a href="" class="delete_category fa fa-trash" data-id="{{$category->id}}" style="color: red;"> </a>
                                             
                                                 {{-- Model of Edit category --}}
                                                 <div class="modal fade" id="edit-category_{{$category->id }}" tabindex="-1" role="dialog" aria-labelledby="modal-form" aria-hidden="true">

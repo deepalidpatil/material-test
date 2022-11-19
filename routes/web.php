@@ -21,6 +21,8 @@ use App\Http\Controllers\UserProfileController;
 use App\Http\Controllers\ResetPassword;
 use App\Http\Controllers\ChangePassword;  
 use App\Http\Controllers\CategoryController; 
+use App\Http\Controllers\MaterialController; 
+
 
 
 Route::get('/', function () {
@@ -41,6 +43,10 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::get('/categories', [App\Http\Controllers\CategoryController::class, 'index'])->name('categories');
 Route::get('/new-category', [App\Http\Controllers\CategoryController::class, 'store'])->name('add-new-category');
 Route::get('/delete-category', [App\Http\Controllers\CategoryController::class, 'destroy'])->name('delete-category');        
+
+// Route::get('/materials', [App\Http\Controllers\MaterialController::class, 'index'])->name('materials');
+Route::resource('materials', MaterialController::class);
+
 
 
 
